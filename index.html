@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炎黄春秋工作室 | 专业编程工作室</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            
+            /* 暗色模式变量 */
+            --bg-color: #fff;
+            --text-color: #333;
+            --card-bg: #fff;
+            --header-bg: #fff;
+            --footer-bg: var(--primary-color);
+            --code-bg: #1e1e1e;
+        }
+
+        /* 暗色模式变量 */
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --header-bg: #1e1e1e;
+            --footer-bg: #121212;
+            --code-bg: #2d2d2d;
+            --primary-color: #3498db;
+            --light-gray: #2d2d2d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 公告区域样式 */
+        .announcement-section {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .announcement-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .announcement-text {
+            font-size: 1rem;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--header-bg);
+            position: sticky;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .logo-text span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        
+        /* 主区域样式 */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--card-bg) 100%);
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+        
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .code-visual {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background-color: var(--code-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+        
+        .code-header {
+            background-color: var(--code-bg);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27ca3f; }
+        
+        .code-content {
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        .code-keyword { color: #569cd6; }
+        .code-function { color: #dcdcaa; }
+        .code-string { color: #ce9178; }
+        .code-comment { color: #6a9955; }
+        
+        /* 章节样式 */
+        section {
+            padding: 80px 0;
+            background-color: var(--bg-color);
+            transition: background-color 0.3s;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        /* 服务部分样式 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .service-description {
+            color: var(--gray-color);
+        }
+        
+        /* 新闻板块样式 */
+        .news-section {
+            background-color: var(--light-gray);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-img {
+            height: 180px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-color);
+            font-size: 3rem;
+        }
+        
+        .news-content {
+            padding: 25px;
+        }
+        
+        .news-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .news-excerpt {
+            color: var(--gray-color);
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            color: var(--primary-color);
+        }
+        
+        /* 作品展示样式 */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            background-color: var(--card-bg);
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .portfolio-img {
+            height: 220px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-color);
+            font-size: 3rem;
+        }
+        
+        .portfolio-content {
+            padding: 25px;
+            background-color: var(--card-bg);
+        }
+        
+        .portfolio-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .portfolio-tag {
+            padding: 5px 12px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+        
+        /* 团队成员样式 */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-card {
+            text-align: center;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            transition: var(--transition);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            overflow: hidden;
+        }
+        
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .team-role {
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        /* 联系样式 */
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 70px 0 30px;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .footer-about {
+            max-width: 350px;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--header-bg);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 80px 0;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .announcement-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 公告区域 -->
+    <section class="announcement-section">
+        <div class="container announcement-content">
+            <span class="announcement-text">🎉 炎黄春秋工作室新版网站上线！现在联系我们可享新客户9折优惠</span>
+        </div>
+    </section>
+    
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="logo-text">炎黄<span>春秋</span></div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#services">服务</a></li>
+                    <li><a href="#news">新闻</a></li>
+                    <li><a href="#portfolio">作品</a></li>
+                    <li><a href="#team">团队</a></li>
+                    <li><a href="#contact">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主展示区域 -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">创新代码，卓越体验</h1>
+                <p class="hero-subtitle">
+                    炎黄春秋工作室专注于前沿技术开发，提供高质量的网站与应用开发服务。我们融合创新思维与精湛技术，为您的业务创造独特价值。
+                </p>
+                <a href="#contact" class="btn">开启项目</a>
+            </div>
+            <div class="hero-visual">
+                <div class="code-visual">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                        <span style="color: #ccc; font-size: 0.9rem; margin-left: 10px;">project.js</span>
+                    </div>
+                    <div class="code-content">
+                        <div><span class="code-keyword">class</span> <span class="code-function">InnovationStudio</span> {</div>
+                        <div>&nbsp;&nbsp;<span class="code-keyword">constructor</span>() {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.name = <span class="code-string">"炎黄春秋工作室"</span>;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.expertise = [<span class="code-string">"前端开发"</span>, <span class="code-string">"UI/UX设计"</span>];</div>
+                        <div>&nbsp;&nbsp;}</div>
+                        <div><br></div>
+                        <div>&nbsp;&nbsp;<span class="code-function">createProject</span>(client, idea) {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">new</span> <span class="code-function">Promise</span>((resolve) => {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// 将创意转化为卓越产品</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> product = {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: idea,</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status: <span class="code-string">"success"</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">resolve</span>(product);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;});</div>
+                        <div>&nbsp;&nbsp;}</div>
+                        <div>}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务部分 -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">我们的服务</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="service-title">网站开发</h3>
+                    <p class="service-description">
+                        从企业官网到复杂Web应用，我们提供响应式、高性能的网站开发服务，确保在各种设备上都有卓越的用户体验。
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">移动应用</h3>
+                    <p class="service-description">
+                        使用现代跨平台技术开发iOS和Android应用，提供原生般的用户体验，同时降低开发成本和时间。
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="service-title">UI/UX设计</h3>
+                    <p class="service-description">
+                        以用户为中心的设计流程，创建直观、美观的用户界面，提升用户满意度和产品转化率。
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="service-title">技术咨询</h3>
+                    <p class="service-description">
+                        为您的技术项目提供专业建议，帮助选择最适合的技术栈，优化开发策略，降低项目风险。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 新闻板块 -->
+    <section id="news" class="news-section">
+        <div class="container">
+            <h2 class="section-title">最新动态</h2>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img" style="background-color: #e3f2fd;">
+                        <i class="fas fa-newspaper" style="color: #2196f3;"></i>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">2026年2月5日</p>
+                        <h3 class="news-title">工作室荣获2025年度最佳创新奖</h3>
+                        <p class="news-excerpt">炎黄春秋工作室凭借在Web3.0领域的创新应用开发，荣获年度最佳创新奖项...</p>
+                        <a href="#" class="read-more">阅读更多 →</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-img" style="background-color: #f3e5f5;">
+                        <i class="fas fa-users" style="color: #9c27b0;"></i>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">2026年1月20日</p>
+                        <h3 class="news-title">团队扩展：欢迎三位新成员加入</h3>
+                        <p class="news-excerpt">我们很高兴地宣布，三位资深开发工程师加入我们的团队，进一步增强我们的技术实力...</p>
+                        <a href="#" class="read-more">阅读更多 →</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-img" style="background-color: #e8f5e9;">
+                        <i class="fas fa-lightbulb" style="color: #4caf50;"></i>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">2025年12月15日</p>
+                        <h3 class="news-title">发布新一代前端开发框架YH-Framework</h3>
+                        <p class="news-excerpt">炎黄春秋工作室正式发布自主研发的前端框架YH-Framework，为开发者提供更高效的开发体验...</p>
+                        <a href="#" class="read-more">阅读更多 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title">精选作品</h2>
+            
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="web">网站</button>
+                <button class="filter-btn" data-filter="app">应用</button>
+                <button class="filter-btn" data-filter="design">设计</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img" style="background-color: #e3f2fd;">
+                        <i class="fas fa-shopping-cart" style="color: #2196f3;"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">电商平台重构</h3>
+                        <p>为知名零售品牌重构电商平台，提升性能与用户体验，实现移动端转化率提升40%。</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Vue.js</span>
+                            <span class="portfolio-tag">Node.js</span>
+                            <span class="portfolio-tag">响应式</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="app">
+                    <div class="portfolio-img" style="background-color: #f3e5f5;">
+                        <i class="fas fa-heartbeat" style="color: #9c27b0;"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">健康管理应用</h3>
+                        <p>开发全面的健康管理移动应用，集成健康数据追踪、个性化建议和医生咨询功能。</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">React Native</span>
+                            <span class="portfolio-tag">Firebase</span>
+                            <span class="portfolio-tag">健康科技</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-img" style="background-color: #e8f5e9;">
+                        <i class="fas fa-graduation-cap" style="color: #4caf50;"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">教育平台UI/UX设计</h3>
+                        <p>为在线教育平台重新设计用户界面，简化学习流程，提高用户参与度和课程完成率。</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Figma</span>
+                            <span class="portfolio-tag">用户体验</span>
+                            <span class="portfolio-tag">界面设计</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队成员 -->
+    <section id="team">
+        <div class="container">
+            <h2 class="section-title">我们的团队</h2>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">张明轩</h3>
+                    <p class="team-role">前端开发专家</p>
+                    <p>8年开发经验，精通现代前端框架，擅长复杂应用架构与性能优化。</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">李思雨</h3>
+                    <p class="team-role">UI/UX设计师</p>
+                    <p>专注用户体验设计6年，曾为多家知名企业设计产品界面，获得多项设计奖项。</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">王浩然</h3>
+                    <p class="team-role">全栈工程师</p>
+                    <p>精通前后端开发，擅长高并发系统设计，拥有多个大型项目架构经验。</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="team-name">陈雅文</h3>
+                    <p class="team-role">移动开发专家</p>
+                    <p>专注于跨平台移动应用开发，精通React Native和Flutter，已发布20+应用。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">联系我们</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>工作室地址</h3>
+                            <p>北京市海淀区中关村科技园创新大厦A座1203室</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>联系电话</h3>
+                            <p>+86 10 8765 4321</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>电子邮箱</h3>
+                            <p>contact@yanhuangstudio.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>工作时间</h3>
+                            <p>周一至周五: 9:00 - 18:00</p>
+                            <p>周末: 预约制</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="您的姓名" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="电子邮箱" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="主题" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="项目描述或留言" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">炎黄<span>春秋</span></div>
+                    <p>炎黄春秋工作室是一支专注于高质量软件开发的团队，我们致力于通过创新技术帮助客户实现业务目标，创造卓越的数字体验。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#services">服务</a></li>
+                        <li><a href="#news">新闻</a></li>
+                        <li><a href="#portfolio">作品</a></li>
+                        <li><a href="#team">团队</a></li>
+                        <li><a href="#contact">联系</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>联系我们</h3>
+                    <p><i class="fas fa-envelope"></i> contact@yanhuangstudio.com</p>
+                    <p><i class="fas fa-phone"></i> +86 10 8765 4321</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 北京市海淀区中关村科技园</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 炎黄春秋工作室. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 根据系统偏好设置暗色模式
+        function checkDarkModePreference() {
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            if (prefersDarkScheme.matches) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+        
+        // 监听系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (e.matches) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+        
+        // 页面加载时检查暗色模式
+        window.addEventListener('DOMContentLoaded', checkDarkModePreference);
+        
+        // 移动端菜单切换
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+            this.innerHTML = this.innerHTML.includes('fa-bars') ? 
+                '<i class="fas fa-times"></i>' : 
+                '<i class="fas fa-bars"></i>';
+        });
+        
+        // 点击菜单项后关闭移动菜单
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mainNav').classList.remove('active');
+                document.getElementById('mobileMenuBtn').innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // 作品筛选功能
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 更新激活按钮
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const portfolioItems = document.querySelectorAll('.portfolio-item');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // 联系表单提交
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 在实际应用中，这里应该发送表单数据到服务器
+            // 这里我们只显示一个简单的成功消息
+            alert('感谢您的留言！我们会尽快与您联系。');
+            this.reset();
+        });
+        
+        // 滚动时头部样式变化
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        // 页面加载时添加淡入效果
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
