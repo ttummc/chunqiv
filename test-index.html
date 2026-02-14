@@ -12,25 +12,53 @@
     <!-- Material Icons (Filled + Outlined 变体) -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/mdui@2/mdui.global.js"></script>
 
     <!-- 自定义样式：增加边框与对比度 -->
     <style>
-        /* 基础辅助 */
+        /* 全局：确保页面至少占满视口，高度驱动布局，使用 Roboto */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', 'Noto Sans', Roboto, 'Helvetica Neue', Arial;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: rgb(var(--mdui-color-surface));
+            color: rgb(var(--mdui-color-on-surface));
+        }
+
+        /* 使 mdui-layout 成为主轴布局，main 区域可扩展以推动 footer 到底部 */
+        mdui-layout {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        mdui-layout-main {
+            flex: 1 1 auto;
+        }
+        footer {
+            margin-top: auto;
+        }
+
+        /* 基础容器 */
         .container-custom {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* 为卡片添加细边框，同时保留阴影 */
+        /* 卡片：MD3 风格更柔和的圆角与边距 */
         mdui-card.bordered-card {
-            border: 1px solid rgba(var(--mdui-color-outline), 0.15);
-            transition: border 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(var(--mdui-color-outline), 0.12);
+            transition: border 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+            border-radius: 12px;
+            overflow: hidden;
         }
         mdui-card.bordered-card:hover {
-            border-color: rgba(var(--mdui-color-outline), 0.3);
+            border-color: rgba(var(--mdui-color-outline), 0.22);
             box-shadow: var(--mdui-elevation-level2);
+            transform: translateY(-4px);
         }
 
         /* 为新闻卡片图片区域添加下边框 */
@@ -38,9 +66,12 @@
             border-bottom: 1px solid rgba(var(--mdui-color-outline), 0.1);
         }
 
-        /* 顶部应用栏增加底部细线 (增强对比) */
+        /* 顶部应用栏：MD3 外观，轻微投影与间距 */
         mdui-top-app-bar {
-            border-bottom: 1px solid rgba(var(--mdui-color-outline), 0.12);
+            border-bottom: 1px solid rgba(var(--mdui-color-outline), 0.08);
+            background: rgb(var(--mdui-color-surface));
+            box-shadow: var(--mdui-elevation-level1);
+            padding: 6px 12px;
         }
 
         /* 分隔线加强：在主要区块之间增加视觉分割 */
@@ -52,30 +83,34 @@
 
         /* 团队成员卡片头像边框 */
         .team-avatar-bordered {
-            border: 2px solid rgba(var(--mdui-color-secondary), 0.3);
-            transition: border 0.2s;
+            border: 2px solid rgba(var(--mdui-color-secondary), 0.22);
+            transition: border 0.18s ease, transform 0.18s ease;
+            border-radius: 999px;
         }
         mdui-card:hover .team-avatar-bordered {
             border-color: rgb(var(--mdui-color-secondary));
+            transform: translateY(-4px);
         }
 
-        /* 代码卡片增加边框 */
+        /* 代码卡片 */
         .code-card {
-            border: 1px solid rgba(var(--mdui-color-outline), 0.2);
+            border: 1px solid rgba(var(--mdui-color-outline), 0.14);
+            border-radius: 12px;
         }
 
         /* 底部导航链接增加分隔线 */
         .footer-links mdui-list-item {
-            border-bottom: 1px dashed rgba(var(--mdui-color-outline), 0.1);
+            border-bottom: 1px dashed rgba(var(--mdui-color-outline), 0.06);
         }
         .footer-links mdui-list-item:last-child {
             border-bottom: none;
         }
 
-        /* 增强文本对比度：确保在浅色/深色下都有足够对比，mdui已经处理，这里仅微调标题 */
+        /* 标题微调，保持层级清晰 */
         .section-title {
             color: rgb(var(--mdui-color-primary)) !important;
             font-weight: 600;
+            letter-spacing: 0.2px;
         }
 
         /* 作品卡片过渡效果保留 */
@@ -85,7 +120,13 @@
 
         /* 抽屉导航项加底边 */
         .drawer-nav mdui-list-item {
-            border-bottom: 1px solid rgba(var(--mdui-color-outline), 0.08);
+            border-bottom: 1px solid rgba(var(--mdui-color-outline), 0.06);
+        }
+
+        /* 响应式微调：更紧凑的间距以符合 MD3 的密度控制 */
+        @media (max-width: 600px) {
+            .container-custom { padding: 0 12px; }
+            mdui-top-app-bar { padding: 6px 8px; }
         }
     </style>
 </head>
