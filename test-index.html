@@ -140,28 +140,28 @@
             mdui-top-app-bar { padding: 6px 8px; }
         }
     </style>
+    <link rel="stylesheet" href="assets/nav.css">
 </head>
 <body>
     <!-- 整体布局容器 -->
     <mdui-layout full-height>
         <!-- 顶部应用栏 (添加底部边框) -->
         <mdui-top-app-bar variant="small" scroll-behavior="elevate" id="mainTopAppBar">
-            <mdui-button-icon id="menuToggle" icon="menu--outlined" slot="navigation"></mdui-button-icon>
-
-            <mdui-top-app-bar-title style="display: flex; align-items: center; gap: 12px;">
+            <mdui-top-app-bar-title style="display:flex; align-items:center; gap:12px;">
                 <img src="IMG_20260207_170300.jpg" alt="工作室封面" class="studio-cover">
-                <div style="display:flex; align-items:center; gap:8px;">
-                </div>
+                <div class="logo-text">炎黄春秋 <span style="font-weight:400; margin-left:6px;">春秋阁</span></div>
             </mdui-top-app-bar-title>
 
-            <!-- 桌面导航 (隐藏于移动端) -->
-            <div style="flex:1; display: flex; justify-content: flex-end; gap: 4px; margin-right: 16px;" class="mdui-hidden-sm-down">
-                <mdui-button variant="text" href="#home">首页</mdui-button>
-                <mdui-button variant="text" href="#services">服务</mdui-button>
-                <mdui-button variant="text" href="#news">新闻</mdui-button>
-                <mdui-button variant="text" href="#portfolio">作品</mdui-button>
-                <mdui-button variant="text" href="#team">精英成员</mdui-button>
-                <mdui-button variant="text" href="#contact">联系</mdui-button>
+            <div class="nav-container" style="flex:1; justify-content:flex-end; display:flex; align-items:center; position:relative;">
+                <button class="nav-toggle mdui-hidden-md-up" aria-expanded="false" aria-controls="siteNavList">☰</button>
+                <ul id="siteNavList" class="nav-list mdui-hidden-sm-down" role="menubar" style="display:flex;">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#services">服务</a></li>
+                    <li><a href="#news">新闻</a></li>
+                    <li><a href="#portfolio">作品</a></li>
+                    <li><a href="#team">精英成员</a></li>
+                    <li><a href="#contact">联系</a></li>
+                </ul>
             </div>
         </mdui-top-app-bar>
 
@@ -579,5 +579,6 @@
             });
         })();
     </script>
+    <script src="assets/nav.js" defer></script>
 </body>
 </html>
