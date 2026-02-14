@@ -17,9 +17,8 @@
 
     <!-- 自定义样式：增加边框与对比度 -->
     <style>
-        /* 全局：确保页面至少占满视口，高度驱动布局，使用 Roboto */
+        /* 全局：使用 Roboto 字体，默认文档流保留，页脚随内容自然排列 */
         html, body {
-            height: 100%;
             margin: 0;
             font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', 'Noto Sans', Roboto, 'Helvetica Neue', Arial;
             -webkit-font-smoothing: antialiased;
@@ -28,17 +27,12 @@
             color: rgb(var(--mdui-color-on-surface));
         }
 
-        /* 使 mdui-layout 成为主轴布局，main 区域可扩展以推动 footer 到底部 */
+        /* 保持 mdui-layout 的默认行为，不强制撑满视口 */
         mdui-layout {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            display: block;
         }
         mdui-layout-main {
-            flex: 1 1 auto;
-        }
-        footer {
-            margin-top: auto;
+            display: block;
         }
 
         /* 基础容器 */
