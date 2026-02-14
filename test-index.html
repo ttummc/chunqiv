@@ -67,6 +67,23 @@
             box-shadow: var(--mdui-elevation-level1);
             padding: 6px 12px;
         }
+        /* 工作室封面（导航栏左侧） */
+        .studio-cover {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 1px solid rgba(var(--mdui-color-outline), 0.06);
+            display: inline-block;
+        }
+
+        /* 导航链接容器更紧凑，按钮密度更接近 MD3 */
+        .nav-links mdui-button {
+            min-width: 56px;
+            padding: 6px 10px;
+            font-weight: 500;
+        }
 
         /* 分隔线加强：在主要区块之间增加视觉分割 */
         .section-divider {
@@ -130,10 +147,16 @@
         <!-- 顶部应用栏 (添加底部边框) -->
         <mdui-top-app-bar variant="small" scroll-behavior="elevate" id="mainTopAppBar">
             <mdui-button-icon id="menuToggle" icon="menu--outlined" slot="navigation"></mdui-button-icon>
-            
-            <mdui-top-app-bar-title style="display: flex; align-items: center; gap: 8px;">
-                <mdui-icon name="code" class="logo-icon"></mdui-icon>
-                <span>炎黄春秋<span style="color: rgb(var(--mdui-color-error))"> 春秋阁</span></span>
+
+            <mdui-top-app-bar-title style="display: flex; align-items: center; gap: 12px;">
+                <img src="IMG_20260207_170300.jpg" alt="工作室封面" class="studio-cover">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <mdui-icon name="code" class="logo-icon"></mdui-icon>
+                    <div style="display:flex; flex-direction:column; line-height:1;">
+                        <span style="font-weight:700;">炎黄春秋</span>
+                        <small style="color: rgb(var(--mdui-color-on-surface-variant));">春秋阁</small>
+                    </div>
+                </div>
             </mdui-top-app-bar-title>
 
             <!-- 桌面导航 (隐藏于移动端) -->
