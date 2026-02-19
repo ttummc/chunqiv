@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    </style>
         <link rel="stylesheet" href="assets/nav.css">
 
+    <style>
             /* 暗色模式变量 */
             .dark-mode {
             --accent-color: #e74c3c;
@@ -795,7 +795,7 @@
             <div class="hero-text">
                 <h1 class="hero-title">欢迎了解春秋阁</h1>
                 <p class="hero-subtitle">
-                    炎黄春秋工作室成立于2025年7月30日，由室长竹下一刀魂创建。炎黄春秋工作室实力雄厚，是编程猫社区为数不多的0.0001*10的4次方级工作室（级别太高了都科学计数法了）。众多首页优秀作品为鄙室投稿作品</p>
+                    炎黄春秋工作室成立于2025年7月30日，由室长竹下一刀魂创建。炎黄春秋工作室实力雄厚，是编程猫社区为数不多的0.0001*10的4次方级工作室（级别太高了都科学计数法了）。众多首页优秀作品为鄙室投稿作品
                 </p>
                 <a href="https://shequ.codemao.cn/work_shop/30521" class="btn">进入工作室🤗</a>
             </div>
@@ -1172,19 +1172,23 @@
         // 页面加载时检查暗色模式
         window.addEventListener('DOMContentLoaded', checkDarkModePreference);
         
-        // 移动端菜单切换
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            document.getElementById('mainNav').classList.toggle('active');
-            this.innerHTML = this.innerHTML.includes('fa-bars') ? 
-                '<i class="fas fa-times"></i>' : 
-                '<i class="fas fa-bars"></i>';
-        });
+        // 移动端菜单切换（使用 `.nav-toggle` 按钮）
+        const _navToggle = document.querySelector('.nav-toggle');
+        const _mainNav = document.getElementById('mainNav');
+        if (_navToggle) {
+            _navToggle.addEventListener('click', function() {
+                if (_mainNav) _mainNav.classList.toggle('active');
+                this.innerHTML = this.innerHTML.includes('fa-bars') || this.innerHTML.trim() === '☰' ?
+                    '<i class="fas fa-times"></i>' :
+                    '<i class="fas fa-bars"></i>';
+            });
+        }
         
         // 点击菜单项后关闭移动菜单
         document.querySelectorAll('#mainNav a').forEach(link => {
             link.addEventListener('click', function() {
-                document.getElementById('mainNav').classList.remove('active');
-                document.getElementById('mobileMenuBtn').innerHTML = '<i class="fas fa-bars"></i>';
+                if (_mainNav) _mainNav.classList.remove('active');
+                if (_navToggle) _navToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
         
