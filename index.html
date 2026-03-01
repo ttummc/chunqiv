@@ -11,6 +11,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="assets/nav.css">
 
+        <!-- Material Components Web (MDC) for MD3-like components -->
+        <link rel="stylesheet" href="https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.css">
+        <script defer src="https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.js"></script>
+
+        <!-- MD3 token mappings -> legacy variables -->
+        <style>
+            :root {
+                --md-sys-primary: #6750A4;
+                --md-sys-on-primary: #FFFFFF;
+                --md-sys-secondary: #B00020;
+                --md-sys-surface: #FFFFFF;
+                --md-sys-on-surface: #000000;
+                --md-sys-surface-container: #F5F5F5;
+
+                /* legacy variables mapped to MD tokens */
+                --primary-color: var(--md-sys-primary);
+                --secondary-color: var(--md-sys-secondary);
+                --bg-color: var(--md-sys-surface);
+                --text-color: var(--md-sys-on-surface);
+                --card-bg: var(--md-sys-surface-container);
+            }
+
+            .dark-mode {
+                --primary-color: var(--md-sys-primary);
+                --secondary-color: var(--md-sys-secondary);
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --card-bg: #1e1e1e;
+            }
+        </style>
     <style>
             /* 暗色模式变量 */
             .dark-mode {
@@ -774,7 +804,7 @@
             </div>
 
             <div class="nav-container" style="display:flex; align-items:center; gap:8px; position:relative;">
-                <button class="nav-toggle mdui-hidden-md-up" aria-expanded="false" aria-controls="siteNavList">☰</button>
+                <button class="nav-toggle mdui-hidden-md-up mdc-icon-button" aria-expanded="false" aria-controls="siteNavList">☰</button>
                 <nav id="mainNav" aria-label="主导航">
                     <ul id="siteNavList" class="nav-list" style="display:flex; gap:8px; list-style:none; margin:0; padding:0;">
                         <li><a href="#home">首页</a></li>
@@ -797,7 +827,7 @@
                 <p class="hero-subtitle">
                     炎黄春秋工作室成立于2025年7月30日，由室长竹下一刀魂创建。炎黄春秋工作室实力雄厚，是编程猫社区为数不多的0.0001*10的4次方级工作室（级别太高了都科学计数法了）。众多首页优秀作品为鄙室投稿作品
                 </p>
-                <a href="https://shequ.codemao.cn/work_shop/30521" class="btn">进入工作室🤗</a>
+                <a href="https://shequ.codemao.cn/work_shop/30521" class="btn mdc-button mdc-button--raised">进入工作室🤗</a>
             </div>
             <div class="hero-visual">
                 <div class="code-visual">
@@ -930,10 +960,10 @@
             <h2 class="section-title">精选作品</h2>
             
             <div class="portfolio-filter">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="web">游戏</button>
-                <button class="filter-btn" data-filter="app">教学</button>
-                <button class="filter-btn" data-filter="design">模板</button>
+                <button class="filter-btn active mdc-button" data-filter="all">全部</button>
+                <button class="filter-btn mdc-button" data-filter="web">游戏</button>
+                <button class="filter-btn mdc-button" data-filter="app">教学</button>
+                <button class="filter-btn mdc-button" data-filter="design">模板</button>
             </div>
             
             <div class="portfolio-grid">
@@ -1101,7 +1131,7 @@
                             <textarea class="form-control" placeholder="项目描述或留言" required></textarea>
                         </div>
                         
-                        <button type="submit" class="btn">发送消息</button>
+                        <button type="submit" class="btn mdc-button mdc-button--raised">发送消息</button>
                     </form>
                 </div>
             </div>
@@ -1250,6 +1280,69 @@
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 100);
+        });
+    </script>
+    <script>
+        // 初始化 MDC Ripple 与动态主题（简单 Material You 风格）
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // attach ripple to buttons/icon-buttons
+                if (window.mdc && mdc.ripple && mdc.ripple.MDCRipple) {
+                    document.querySelectorAll('.mdc-button, .mdc-icon-button').forEach(el => {
+                        try { mdc.ripple.MDCRipple.attachTo(el); } catch(e){}
+                    });
+                }
+            } catch (e) {}
+
+            // 简单动态主题：提供颜色拾取器并映射到 MD tokens
+            const stored = localStorage.getItem('chunqv-accent');
+            const defaultAccent = stored || getComputedStyle(document.documentElement).getPropertyValue('--md-sys-primary').trim() || '#6750A4';
+
+            const colorInput = document.createElement('input');
+            colorInput.type = 'color';
+            colorInput.value = defaultAccent;
+            colorInput.title = '切换主题主色（Material You）';
+            colorInput.style.position = 'fixed';
+            colorInput.style.right = '12px';
+            colorInput.style.bottom = '12px';
+            colorInput.style.zIndex = '9999';
+            colorInput.style.opacity = '0.9';
+            document.body.appendChild(colorInput);
+
+            colorInput.addEventListener('input', (e) => {
+                setThemeColor(e.target.value);
+                localStorage.setItem('chunqv-accent', e.target.value);
+            });
+
+            setThemeColor(colorInput.value);
+
+            function setThemeColor(hex) {
+                document.documentElement.style.setProperty('--md-sys-primary', hex);
+                // 计算对比色
+                const rgb = hexToRgb(hex);
+                const lum = (0.299*rgb.r + 0.587*rgb.g + 0.114*rgb.b)/255;
+                document.documentElement.style.setProperty('--md-sys-on-primary', lum > 0.6 ? '#000000' : '#FFFFFF');
+                // 派生 secondary
+                document.documentElement.style.setProperty('--md-sys-secondary', shadeColor(hex, 18));
+                // 兼容旧变量
+                document.documentElement.style.setProperty('--primary-color', hex);
+                document.documentElement.style.setProperty('--secondary-color', shadeColor(hex, 18));
+            }
+
+            function hexToRgb(hex) {
+                hex = hex.replace('#','');
+                return { r: parseInt(hex.substring(0,2),16), g: parseInt(hex.substring(2,4),16), b: parseInt(hex.substring(4,6),16) };
+            }
+
+            function shadeColor(hex, percent) {
+                const {r,g,b} = hexToRgb(hex);
+                const t = percent>0?255:0;
+                const p = Math.abs(percent)/100;
+                const R = Math.round((t - r)*p) + r;
+                const G = Math.round((t - g)*p) + g;
+                const B = Math.round((t - b)*p) + b;
+                return '#' + [R,G,B].map(x => x.toString(16).padStart(2,'0')).join('');
+            }
         });
     </script>
     <script src="assets/nav.js" defer></script>
