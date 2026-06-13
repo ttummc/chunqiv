@@ -93,24 +93,8 @@
             --md-state-focus-opacity: 0.12;
             --md-state-pressed-opacity: 0.12;
             --md-state-dragged-opacity: 0.16;
-
-            --primary-color: var(--md-primary);
-            --secondary-color: var(--md-secondary);
-            --accent-color: #e74c3c;
-            --bg-color: var(--md-surface);
-            --text-color: var(--md-on-surface);
-            --card-bg: var(--md-surface-container-low);
-            --header-bg: var(--md-surface-container-lowest);
-            --footer-bg: var(--md-primary);
-            --light-gray: var(--md-surface-container);
-            --gray-color: var(--md-on-surface-variant);
-            --border-radius: var(--md-shape-medium);
-            --transition: all var(--md-duration-medium) var(--md-easing-standard);
         }
 
-        /* ═══════════════════════════════════════════════════════
-           MD3 暗色模式 - 优化对比度
-           ═══════════════════════════════════════════════════════ */
         .dark-mode {
             --md-primary: #D0BCFF;
             --md-on-primary: #381E72;
@@ -133,7 +117,6 @@
             --md-error-container: #8C1D18;
             --md-on-error-container: #F9DEDC;
 
-            /* ── 表面色与容器层级：优化对比度 ── */
             --md-surface: #1C1B1F;
             --md-on-surface: #E6E1E5;
             --md-surface-variant: #49454F;
@@ -143,9 +126,8 @@
             --md-inverse-surface: #E6E1E5;
             --md-inverse-on-surface: #313033;
 
-            /* 容器层级：从低到高，亮度递增，确保卡片与背景清晰分离 */
             --md-surface-container-lowest: #0F0D13;
-            --md-surface-container-low: #242229;      /* 明显比surface亮 */
+            --md-surface-container-low: #242229;
             --md-surface-container: #2B2930;
             --md-surface-container-high: #333138;
             --md-surface-container-highest: #3C3A41;
@@ -153,24 +135,11 @@
             --md-shadow: #000000;
             --md-scrim: #000000;
 
-            /* 阴影全部移除 */
             --md-elevation-1: none;
             --md-elevation-2: none;
             --md-elevation-3: none;
             --md-elevation-4: none;
             --md-elevation-5: none;
-
-            /* 兼容变量 */
-            --primary-color: var(--md-primary);
-            --secondary-color: var(--md-secondary);
-            --bg-color: var(--md-surface);
-            --text-color: var(--md-on-surface);
-            --card-bg: var(--md-surface-container-low);
-            --header-bg: var(--md-surface-container-lowest);
-            --footer-bg: #121212;
-            --light-gray: var(--md-surface-container);
-            --gray-color: var(--md-on-surface-variant);
-            --accent-color: #ff6b6b;
         }
 
         *,
@@ -203,7 +172,6 @@
             padding: 0 24px;
         }
 
-        /* 公告 */
         .announcement-section {
             background-color: var(--md-primary-container);
             color: var(--md-on-primary-container);
@@ -227,7 +195,6 @@
             letter-spacing: 0.01em;
         }
 
-        /* 头部导航 */
         header {
             background-color: var(--md-surface-container-lowest);
             position: sticky;
@@ -240,10 +207,6 @@
         header.scrolled {
             box-shadow: var(--md-elevation-2);
             background-color: var(--md-surface-container-low);
-        }
-
-        .dark-mode header.scrolled {
-            box-shadow: none;
         }
 
         .header-container {
@@ -351,9 +314,6 @@
             font-weight: 600;
         }
 
-        /* ═══════════════════════════════════════════════════════
-           Hero 区域 & 创意视觉
-           ═══════════════════════════════════════════════════════ */
         .hero {
             padding: 80px 0 100px;
             background: linear-gradient(180deg,
@@ -414,10 +374,6 @@
             border: none;
             cursor: pointer;
             box-shadow: var(--md-elevation-1);
-        }
-
-        .dark-mode .btn {
-            box-shadow: none;
         }
 
         .btn:hover {
@@ -675,9 +631,6 @@
             }
         }
 
-        /* ═══════════════════════════════════════════════════════
-           章节通用
-           ═══════════════════════════════════════════════════════ */
         section {
             padding: 80px 0;
             background-color: var(--md-surface);
@@ -707,7 +660,6 @@
             margin-right: auto;
         }
 
-        /* 服务卡片 */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -767,7 +719,6 @@
             line-height: 1.6;
         }
 
-        /* 新闻板块 */
         .news-section {
             background-color: var(--md-surface-container-low);
         }
@@ -867,7 +818,6 @@
             transform: translateX(3px);
         }
 
-        /* 作品筛选 */
         .portfolio-filter {
             display: flex;
             justify-content: center;
@@ -902,7 +852,7 @@
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 24px;
         }
 
@@ -913,6 +863,8 @@
             background-color: var(--md-surface-container-low);
             box-shadow: var(--md-elevation-1);
             border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
         }
 
         .dark-mode .portfolio-item {
@@ -926,37 +878,55 @@
         }
 
         .portfolio-img {
-            height: 200px;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: var(--md-surface-container-high);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            overflow: hidden;
-            background-color: var(--md-surface-container-high);
+        }
+
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .portfolio-content {
             padding: 24px;
             background-color: inherit;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .portfolio-title {
             font: var(--md-typescale-title-medium);
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             color: var(--md-on-surface);
+        }
+
+        .portfolio-id {
+            display: block;
+            font: var(--md-typescale-body-small);
+            color: var(--md-on-surface-variant);
+            margin-bottom: 8px;
         }
 
         .portfolio-content>p {
             font: var(--md-typescale-body-medium);
             color: var(--md-on-surface-variant);
             margin-bottom: 14px;
+            flex: 1;
         }
 
         .portfolio-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 16px;
         }
 
         .portfolio-tag {
@@ -969,7 +939,28 @@
             border: 1px solid var(--md-outline-variant);
         }
 
-        /* 团队成员 */
+        .experience-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 24px;
+            border: 1.5px solid var(--md-outline);
+            border-radius: var(--md-shape-full);
+            color: var(--md-primary);
+            text-decoration: none;
+            font: var(--md-typescale-label-large);
+            font-weight: 600;
+            transition: background-color 0.2s, border-color 0.2s;
+            margin-top: auto;
+            align-self: flex-start;
+        }
+
+        .experience-btn:hover {
+            background-color: rgba(103, 80, 164, 0.08);
+            border-color: var(--md-primary);
+        }
+
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -1043,7 +1034,6 @@
             line-height: 1.5;
         }
 
-        /* 申请加入 */
         .join-container {
             display: flex;
             gap: 48px;
@@ -1146,7 +1136,6 @@
             filter: brightness(1.08);
         }
 
-        /* 页脚 */
         footer {
             background-color: var(--md-surface-container-highest);
             color: var(--md-on-surface);
@@ -1258,10 +1247,16 @@
             font: var(--md-typescale-body-small);
         }
 
-        /* ═══════════════════════════════════════════════════════
-           响应式设计
-           ═══════════════════════════════════════════════════════ */
+        @media (max-width: 1200px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
         @media (max-width: 992px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
             .hero-content {
                 flex-direction: column;
                 text-align: center;
@@ -1294,9 +1289,6 @@
             .orbit-ring.ring-3 {
                 width: 340px;
                 height: 340px;
-            }
-            .portfolio-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
             .join-container {
                 flex-direction: column;
@@ -1380,6 +1372,9 @@
             }
             .footer-content {
                 gap: 32px;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -1615,39 +1610,82 @@
             </div>
             <div class="portfolio-grid">
                 <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-img"><span class="material-symbols-outlined" style="color: #2196F3;">sports_esports</span></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMjAxODM5NDAwXzMwMDM5OTY1MV8xNzcyMDgyMjQ4MzQwXzllY2RjNjk3.png" alt="学科模拟器"></div>
                     <div class="portfolio-content">
-                        <h3 class="portfolio-title">暂无作品</h3>
-                        <p>5555555555，室长快来填啊</p>
+                        <h3 class="portfolio-title">3D我的世界3</h3>
+                        <span class="portfolio-id">编号 300399651</span>
+                        <p>无限复杂的地形！！全方面升级！搭载更加强大的3D引擎、地形生成引擎、区块引擎，流畅支撑超大世界！地形有厚度，能够支持玩家进行mc的鱼骨挖矿！精选作品《3D我的世界2》的续作。</p>
                         <div class="portfolio-tags">
-                            <span class="portfolio-tag">Vue.js</span>
-                            <span class="portfolio-tag">Node.js</span>
-                            <span class="portfolio-tag">响应式</span>
+                            <span class="portfolio-tag">点猫精选</span>
+                            <span class="portfolio-tag">体验不同人生</span>
                         </div>
+                        <a href="https://shequ.codemao.cn/work/300399651" class="experience-btn">开始体验</a>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="app">
-                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/490/YW5kXzIwMDFfMTMzOTk5MzIzNl8yNDkxNTg5OTBfMTc2OTc4NzkwNTA1Ml9xMzZvZjJ6Wg==.cover" alt="学科模拟器" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/490/YW5kXzIwMDFfMTMzOTk5MzIzNl8yNDkxNTg5OTBfMTc2OTc4NzkwNTA1Ml9xMzZvZjJ6Wg==.cover" alt="学科模拟器"></div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">学科模拟器</h3>
+                        <span class="portfolio-id">编号 249158990</span>
                         <p>有意打造出全编程猫最优质的学科模拟类作品。因为我们相信：知识不是被灌输的，而是被传递的。</p>
                         <div class="portfolio-tags">
                             <span class="portfolio-tag">KittenN</span>
                             <span class="portfolio-tag">学科类</span>
-                            <span class="portfolio-tag">外室作品</span>
                         </div>
+                        <a href="https://shequ.codemao.cn/work/249158990" class="experience-btn">开始体验</a>
                     </div>
                 </div>
-                <div class="portfolio-item" data-category="design">
-                    <div class="portfolio-img"><span class="material-symbols-outlined" style="color: #4CAF50;">movie</span></div>
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTExMTUzMjM5MF8zMDMzODE4NDFfMTc3MTU2MzkzODcyM18wODYyNzRlMw==.gif" alt="学科模拟器"></div>
                     <div class="portfolio-content">
-                        <h3 class="portfolio-title">哪吒2 XCX</h3>
-                        <p>作品介绍：喜欢我的作品吗？点个赞再走吧！操作说明：1变身 0万龙甲 QWEA哪吒 IOPJ敖丙</p>
+                        <h3 class="portfolio-title">3D对洗澡的恐惧</h3>
+                        <span class="portfolio-id">编号 303381841</span>
+                        <p>这是一个里程碑，猫站第一个3d纹理恐怖游戏。一共有3个结局，等你来挑战哦！内含恐怖元素。这是根据我小时候的经理改变而成的！</p>
                         <div class="portfolio-tags">
-                            <span class="portfolio-tag">Kitten4</span>
-                            <span class="portfolio-tag">额..</span>
-                            <span class="portfolio-tag">优质</span>
+                            <span class="portfolio-tag">奇思妙想创意馆</span>
+                            <span class="portfolio-tag">新作喵喵看</span>
                         </div>
+                        <a href="https://shequ.codemao.cn/work/303381841" class="experience-btn">开始体验</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTgxNjkwMTIxMV8yMzY5NzYzMjZfMTc2OTk1NDkzODg3OV84ODY4N2FjYQ==.png" alt="学科模拟器"></div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">一起下棋</h3>
+                        <span class="portfolio-id">编号 236976326</span>
+                        <p>自制五子棋ai。国际象棋。有一些bug，ai有一点点喵但也还行</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">燃烧吧！大脑</span>
+                            <span class="portfolio-tag">Relax！休闲一刻</span>
+                            <span class="portfolio-tag">新作喵喵看</span>
+                        </div>
+                        <a href="https://shequ.codemao.cn/work/236976326" class="experience-btn">开始体验</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTI3Njg4MTcwNV8yNzkzNjE3MDZfMTc1NjAxMTcwNzA2N18yNjM1Yzk5Nw==.png" alt="学科模拟器"></div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">无尽的拉格朗日</h3>
+                        <span class="portfolio-id">编号 279361706</span>
+                        <p>更新随缘看心情，非最终成品。拉格 + 二风2 = ？。增加防空与陨石机制（目前不扣血）</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">太空</span>
+                            <span class="portfolio-tag">经营类</span>
+                        </div>
+                        <a href="https://shequ.codemao.cn/work/279361706" class="experience-btn">开始体验</a>
+                    </div>
+                </div>
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfNjA2MTg3NF8zMDMzNzk1NTFfMTc3MDE4NjQ0NTk2Nl8zN2JjOWYyMg==.gif" alt="学科模拟器"></div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">永恒跑酷</h3>
+                        <span class="portfolio-id">编号 300873599</span>
+                        <p>bug都修了。普通跑酷：竹下 大地图搭建：竹下、WYP 联机:WYP UI：小绿、竹下</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">跑酷</span>
+                            <span class="portfolio-tag">联机</span>
+                        </div>
+                        <a href="https://shequ.codemao.cn/work/300873599" class="experience-btn">开始体验</a>
                     </div>
                 </div>
             </div>
