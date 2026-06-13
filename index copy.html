@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>春秋阁官方网站</title>
+    <link rel="icon" href="IMG_20260207_170300.jpg" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="assets/nav.css">
+
+        <!-- Material Components Web (MDC) for MD3-like components -->
+        <link rel="stylesheet" href="https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.css">
+        <script defer src="https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.js"></script>
+
+        <!-- MD3 token mappings -> legacy variables -->
+        <style>
+            :root {
+                --md-sys-primary: #6750A4;
+                --md-sys-on-primary: #FFFFFF;
+                --md-sys-secondary: #B00020;
+                --md-sys-surface: #FFFFFF;
+                --md-sys-on-surface: #000000;
+                --md-sys-surface-container: #F5F5F5;
+
+                /* legacy variables mapped to MD tokens */
+                --primary-color: var(--md-sys-primary);
+                --secondary-color: var(--md-sys-secondary);
+                --bg-color: var(--md-sys-surface);
+                --text-color: var(--md-sys-on-surface);
+                --card-bg: var(--md-sys-surface-container);
+            }
+
+            .dark-mode {
+                --primary-color: var(--md-sys-primary);
+                --secondary-color: var(--md-sys-secondary);
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --card-bg: #1e1e1e;
+            }
+        </style>
+    <style>
+            /* 暗色模式变量 */
+            .dark-mode {
+            --accent-color: #e74c3c;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            
+            /* 暗色模式变量 */
+            --bg-color: #fff;
+            --text-color: #333;
+            --card-bg: #fff;
+            --header-bg: #fff;
+            --footer-bg: var(--primary-color);
+            --code-bg: #1e1e1e;
+        }
+
+        /* 暗色模式变量 */
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --header-bg: #1e1e1e;
+            --footer-bg: #121212;
+            --code-bg: #2d2d2d;
+            --primary-color: #3498db;
+            --light-gray: #2d2d2d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 公告区域样式 */
+        .announcement-section {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .announcement-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .announcement-text {
+            font-size: 1rem;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--header-bg);
+            position: sticky;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .logo-text span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        
+        /* 主区域样式 */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--card-bg) 100%);
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+        
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .code-visual {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            background-color: var(--code-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+        
+        .code-header {
+            background-color: var(--code-bg);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27ca3f; }
+        
+        .code-content {
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        .code-keyword { color: #569cd6; }
+        .code-function { color: #dcdcaa; }
+        .code-string { color: #ce9178; }
+        .code-comment { color: #6a9955; }
+        
+        /* 章节样式 */
+        section {
+            padding: 80px 0;
+            background-color: var(--bg-color);
+            transition: background-color 0.3s;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        /* 服务部分样式 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .service-description {
+            color: var(--gray-color);
+        }
+        
+        /* 新闻板块样式 */
+        .news-section {
+            background-color: var(--light-gray);
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .news-img {
+            height: 180px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-color);
+            font-size: 3rem;
+        }
+        
+        .news-content {
+            padding: 25px;
+        }
+        
+        .news-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .news-excerpt {
+            color: var(--gray-color);
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            color: var(--primary-color);
+        }
+        
+        /* 作品展示样式 */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 30px;
+            font-weight: 500;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            background-color: var(--card-bg);
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .portfolio-img {
+            height: 220px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-color);
+            font-size: 3rem;
+        }
+        
+        .portfolio-content {
+            padding: 25px;
+            background-color: var(--card-bg);
+        }
+        
+        .portfolio-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .portfolio-tag {
+            padding: 5px 12px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+        
+        /* 团队成员样式 */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-card {
+            text-align: center;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            transition: var(--transition);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            overflow: hidden;
+        }
+        
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .team-role {
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        /* 联系样式 */
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 70px 0 30px;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .footer-about {
+            max-width: 350px;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--header-bg);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 80px 0;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .announcement-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 公告区域 -->
+    <section class="announcement-section">
+        <div class="container announcement-content">
+            <span class="announcement-text">🎉 炎黄春秋工作室副室长正在竞选，欢迎各位成员参与</span>
+        </div>
+    </section>
+    
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="logo-text">炎黄春秋<span> 春秋阁</span></div>
+            </div>
+
+            <div class="nav-container" style="display:flex; align-items:center; gap:8px; position:relative;">
+                <button class="nav-toggle mdui-hidden-md-up mdc-icon-button" aria-expanded="false" aria-controls="siteNavList">☰</button>
+                <nav id="mainNav" aria-label="主导航">
+                    <ul id="siteNavList" class="nav-list" style="display:flex; gap:8px; list-style:none; margin:0; padding:0;">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#services">服务</a></li>
+                        <li><a href="#news">新闻</a></li>
+                        <li><a href="#portfolio">作品</a></li>
+                        <li><a href="#team">精英成员</a></li>
+                        <li><a href="#contact">联系</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主展示区域 -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">欢迎了解春秋阁</h1>
+                <p class="hero-subtitle">
+                    炎黄春秋工作室成立于2025年7月30日，由室长竹下一刀魂创建。炎黄春秋工作室实力雄厚，是编程猫社区为数不多的0.0001*10的4次方级工作室（级别太高了都科学计数法了）。众多首页优秀作品为鄙室投稿作品
+                </p>
+                <a href="https://shequ.codemao.cn/work_shop/30521" class="btn mdc-button mdc-button--raised">进入工作室🤗</a>
+            </div>
+            <div class="hero-visual">
+                <div class="code-visual">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                        <span style="color: #ccc; font-size: 0.9rem; margin-left: 10px;">project.js</span>
+                    </div>
+                    <div class="code-content">
+                        <div><span class="code-keyword">class</span> <span class="code-function">InnovationStudio</span> {</div>
+                        <div>&nbsp;&nbsp;<span class="code-keyword">constructor</span>() {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.name = <span class="code-string">"炎黄春秋工作室"</span>;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">this</span>.expertise = [<span class="code-string">"欢迎加入"</span>, <span class="code-string">"人才工作室"</span>];</div>
+                        <div>&nbsp;&nbsp;}</div>
+                        <div><br></div>
+                        <div>&nbsp;&nbsp;<span class="code-function">createProject</span>(client, idea) {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">new</span> <span class="code-function">Promise</span>((resolve) => {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">我们有分尸了</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">const</span> product = {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: idea,</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status: <span class="code-string">"success"</span></div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">resolve</span>(product);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;});</div>
+                        <div>&nbsp;&nbsp;}</div>
+                        <div>}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务部分 -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">我们的服务</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="service-title">问题咨询</h3>
+                    <p class="service-description">
+                        您在编程中遇到的问题都可以在本室评论区发表，我相信本室热心且高技术力的成员都会热情的为您解答
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">协作作品</h3>
+                    <p class="service-description">
+                        欢迎各位其他工作室或其成员、无室籍人士寻求与本室的合作。我们将尽最大努力与您达成一致意见。
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="service-title">美术设计</h3>
+                    <p class="service-description">
+                        无论您是否为本室成员，我们也会尽可能以用户为中心的设计语言协助您设计美术风格
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="service-title">技术咨询</h3>
+                    <p class="service-description">
+                        为您的技术项目提供专业建议，帮助选择最适合的技术栈，优化开发策略，降低项目风险。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 新闻板块 -->
+    <section id="news" class="news-section">
+        <div class="container">
+            <h2 class="section-title">最新动态</h2>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img" style="background-color: #e3f2fd;">
+                        <i class="fas fa-newspaper" style="color: #2196f3;"></i>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">2026年2月7日</p>
+                        <h3 class="news-title">工作室官方网站计划正式拉开帷幕</h3>
+                        <p class="news-excerpt">炎黄春秋工作室室长竹下同志与学科模拟器作者有钱取姓达成共识，有钱取姓将负责网站的开发与维护</p>
+                        <a href="https://shequ.codemao.cn/community/1646308" class="read-more">阅读更多 →</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-img" style="background-color: #f3e5f5;">
+                        <i class="fas fa-users" style="color: #9c27b0;"></i>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">2026年1月20日</p>
+                        <h3 class="news-title">团队扩展：欢迎三位新成员加入</h3>
+                        <p class="news-excerpt">我们很高兴地宣布，三位资深开发工程师加入我们的团队，进一步增强我们的技术实力...</p>
+                        <a href="#" class="read-more">阅读更多 →</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-img" style="background-color: #e8f5e9;">
+                        <i class="fas fa-lightbulb" style="color: #4caf50;"></i>
+                    </div>
+                    <div class="news-content">
+                        <p class="news-date">2025年12月15日</p>
+                        <h3 class="news-title">XueKe_Dev计划与本室合作🤝</h3>
+                        <p class="news-excerpt">炎黄春秋工作室与XueKe_Dev计划合作，将在工作室内成立开发小组。冷鱼_或将任组长</p>
+                        <a href="https://shequ.codemao.cn/community/1646315" class="read-more">阅读更多 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title">精选作品</h2>
+            
+            <div class="portfolio-filter">
+                <button class="filter-btn active mdc-button" data-filter="all">全部</button>
+                <button class="filter-btn mdc-button" data-filter="web">游戏</button>
+                <button class="filter-btn mdc-button" data-filter="app">教学</button>
+                <button class="filter-btn mdc-button" data-filter="design">模板</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img" style="background-color: #e3f2fd;">
+                        <i class="fas fa-shopping-cart" style="color: #2196f3;"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">暂无作品</h3>
+                        <p>5555555555，室长快来填啊</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Vue.js</span>
+                            <span class="portfolio-tag">Node.js</span>
+                            <span class="portfolio-tag">响应式</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="app">
+                    <div class="portfolio-img" style="background-color: #f3e5f5;">
+                        <i class="fas fa-heartbeat" style="color: #9c27b0;"><img src="https://creation.bcmcdn.com/490/YW5kXzIwMDFfMTMzOTk5MzIzNl8yNDkxNTg5OTBfMTc2OTc4NzkwNTA1Ml9xMzZvZjJ6Wg==.cover"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">学科模拟器</h3>
+                        <p>我们有意打造出全编程猫最优质的学科模拟类作品。因为我们相信：知识不是被灌输的，而是被传递的。我们有一整个开发团队，本室也是以团体名义加入其XueKeDev开发团队。</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">KittenN</span>
+                            <span class="portfolio-tag">学科类</span>
+                            <span class="portfolio-tag">外室作品</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-img" style="background-color: #e8f5e9;">
+                        <i class="fas fa-graduation-cap" style="color: #4caf50;"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">n哪吒2 XCX</h3>
+                        <p>作品介绍喜欢我的作品吗？点个赞再走吧！操作说明1 变身0 万龙甲QWEA哪吒IOPJ敖丙</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Kitten4</span>
+                            <span class="portfolio-tag">额..</span>
+                            <span class="portfolio-tag">优质</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队成员 -->
+    <section id="team">
+        <div class="container">
+            <h2 class="section-title">精英成员👍</h2>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="https://cdn-community.bcmcdn.com/47/community/d2ViXzEwMDFfNjA2MTg3NF82MDYxODc0XzE3NzAwMDY4ODQ0ODdfZWFmMjg5NzI.gif" alt="竹下一刀魂">
+                    </div>
+                    <h3 class="team-name">竹下一刀魂</h3>
+                    <p class="team-role">室长、本室缔造者</p>
+                    <p>反正就是非常厉害，可是全编程猫社区屈指可数的源码传说</p>
+                    <a href="https://shequ.codemao.cn/user/6061874" class="read-more">进入主页</a>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                            <img src="https://cdn-community.bcmcdn.com/47/community/d2ViXzEwMDFfMTM1OTU4ODc4XzEzNTk1ODg3OF8xNzY5NjA1NzE3Njk0XzkzNmRiNzdj.png" alt="团队头像">
+                    </div>
+                    <h3 class="team-name">半人大黄鸡</h3>
+                    <p class="team-role">外务部大臣</p>
+                    <p>是首页作品“学科模拟器”的作者的小号，怎么说我也是算有实力的吧😶。负责掌管本室与其他工作室的合作</p>
+                    <a href="https://shequ.codemao.cn/user/135958878" class="read-more">进入主页</a>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="https://cdn-community.bcmcdn.com/47/community/d2ViXzEwMDFfNDA1ODMwMjYyXzQwNTgzMDI2Ml8xNzYzMzcwODEwODE2X2FiNDA1NzFh.png" alt="团队头像">
+                    </div>
+                    <h3 class="team-name">战无不胜xcx</h3>
+                    <p class="team-role">副室长</p>
+                    <p>请输入文本👍何意味🌹何意味🌹何意味🌹何意味🌹何意味🌹何意味🌹何意味</p>
+                    <a href="https://shequ.codemao.cn/user/405830262" class="read-more">进入主页</a>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <img src="https://cdn-community.bcmcdn.com/47/community/d2ViXzEwMDFfMTExMTUzMjM5MF8xMTExNTMyMzkwXzE3NjgxMTk2MjY0MzJfZDc5ZGJjMjc.jpeg" alt="团队头像">
+                    </div>
+                    <h3 class="team-name">3dmc</h3>
+                    <p class="team-role">3D作品专家</p>
+                    <p>专注于3D作品开发，精通各种三维渲染技术，已发布20+作品。并为编程猫的3D类开源事业做出巨大贡献。</p>
+                    <a href="https://shequ.codemao.cn/user/1111532390" class="read-more">进入主页</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">联系我们</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>工作室地址</h3>
+                            <p>火星－火星第一社会主义人民联邦 修正州 科穆里林县 春秋路114号 春秋大厦</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>联系电话</h3>
+                            <p>+114514 199993236</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>电子邮箱</h3>
+                            <p>chunqv@groups.outlook.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>工作时间</h3>
+                            <p>周八至周九: 25:00 - 31:00</p>
+                            <p>周末和工作日: 不接待</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="您的姓名" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="电子邮箱" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="主题" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="项目描述或留言" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn mdc-button mdc-button--raised">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">炎黄<span>春秋</span></div>
+                    <p>炎黄春秋工作室，又名春秋阁。是编程猫社区的优质工作室。欢迎您加入。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#services">服务</a></li>
+                        <li><a href="#news">新闻</a></li>
+                        <li><a href="#portfolio">作品</a></li>
+                        <li><a href="#team">团队</a></li>
+                        <li><a href="#contact">联系</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>联系我们</h3>
+                    <p><i class="fas fa-envelope"></i> chunqv@groups.outlook.com</p>
+                    <p><i class="fas fa-phone"></i> 001 114514</p>
+                    <p><i class="fas fa-map-marker-alt"></i> American 上帝压狗</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 炎黄春秋工作室. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 根据系统偏好设置暗色模式
+        function checkDarkModePreference() {
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            if (prefersDarkScheme.matches) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+        
+        // 监听系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (e.matches) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+        
+        // 页面加载时检查暗色模式
+        window.addEventListener('DOMContentLoaded', checkDarkModePreference);
+        
+        // 移动端菜单切换（使用 `.nav-toggle` 按钮）
+        const _navToggle = document.querySelector('.nav-toggle');
+        const _mainNav = document.getElementById('mainNav');
+        if (_navToggle) {
+            _navToggle.addEventListener('click', function() {
+                if (_mainNav) _mainNav.classList.toggle('active');
+                this.innerHTML = this.innerHTML.includes('fa-bars') || this.innerHTML.trim() === '☰' ?
+                    '<i class="fas fa-times"></i>' :
+                    '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // 点击菜单项后关闭移动菜单
+        document.querySelectorAll('#mainNav a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (_mainNav) _mainNav.classList.remove('active');
+                if (_navToggle) _navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // 作品筛选功能
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 更新激活按钮
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const portfolioItems = document.querySelectorAll('.portfolio-item');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // 联系表单提交
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 在实际应用中，这里应该发送表单数据到服务器
+            // 这里我们只显示一个简单的成功消息
+            alert('感谢您的留言！我们会尽快与您联系。');
+            this.reset();
+        });
+        
+        // 滚动时头部样式变化
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        // 页面加载时添加淡入效果
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+    <script>
+        // 初始化 MDC Ripple 与动态主题（简单 Material You 风格）
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // attach ripple to buttons/icon-buttons
+                if (window.mdc && mdc.ripple && mdc.ripple.MDCRipple) {
+                    document.querySelectorAll('.mdc-button, .mdc-icon-button').forEach(el => {
+                        try { mdc.ripple.MDCRipple.attachTo(el); } catch(e){}
+                    });
+                }
+            } catch (e) {}
+
+            // 简单动态主题：提供颜色拾取器并映射到 MD tokens
+            const stored = localStorage.getItem('chunqv-accent');
+            const defaultAccent = stored || getComputedStyle(document.documentElement).getPropertyValue('--md-sys-primary').trim() || '#6750A4';
+
+            const colorInput = document.createElement('input');
+            colorInput.type = 'color';
+            colorInput.value = defaultAccent;
+            colorInput.title = '切换主题主色（Material You）';
+            colorInput.style.position = 'fixed';
+            colorInput.style.right = '12px';
+            colorInput.style.bottom = '12px';
+            colorInput.style.zIndex = '9999';
+            colorInput.style.opacity = '0.9';
+            document.body.appendChild(colorInput);
+
+            colorInput.addEventListener('input', (e) => {
+                setThemeColor(e.target.value);
+                localStorage.setItem('chunqv-accent', e.target.value);
+            });
+
+            setThemeColor(colorInput.value);
+
+            function setThemeColor(hex) {
+                document.documentElement.style.setProperty('--md-sys-primary', hex);
+                // 计算对比色
+                const rgb = hexToRgb(hex);
+                const lum = (0.299*rgb.r + 0.587*rgb.g + 0.114*rgb.b)/255;
+                document.documentElement.style.setProperty('--md-sys-on-primary', lum > 0.6 ? '#000000' : '#FFFFFF');
+                // 派生 secondary
+                document.documentElement.style.setProperty('--md-sys-secondary', shadeColor(hex, 18));
+                // 兼容旧变量
+                document.documentElement.style.setProperty('--primary-color', hex);
+                document.documentElement.style.setProperty('--secondary-color', shadeColor(hex, 18));
+            }
+
+            function hexToRgb(hex) {
+                hex = hex.replace('#','');
+                return { r: parseInt(hex.substring(0,2),16), g: parseInt(hex.substring(2,4),16), b: parseInt(hex.substring(4,6),16) };
+            }
+
+            function shadeColor(hex, percent) {
+                const {r,g,b} = hexToRgb(hex);
+                const t = percent>0?255:0;
+                const p = Math.abs(percent)/100;
+                const R = Math.round((t - r)*p) + r;
+                const G = Math.round((t - g)*p) + g;
+                const B = Math.round((t - b)*p) + b;
+                return '#' + [R,G,B].map(x => x.toString(16).padStart(2,'0')).join('');
+            }
+        });
+    </script>
+    <script src="assets/nav.js" defer></script>
+</body>
+</html>
