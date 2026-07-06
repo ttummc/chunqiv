@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>炎黄春秋工作室</title>
+    <title>炎黄春秋工作室 · 春秋阁</title>
     <link rel="icon" href="https://pic.imgdd.cc/item/6a42a1bec6a74ee51992fac5.png" type="image/png">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -12,8 +12,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="assets/nav.css">
 
     <style>
         :root {
@@ -88,6 +86,9 @@
             --md-duration-medium: 400ms;
             --md-duration-long: 600ms;
             --md-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+            --md-easing-emphasized: cubic-bezier(0.4, 0, 0.2, 1);
+            --md-easing-decelerate: cubic-bezier(0, 0, 0, 1);
+            --md-easing-accelerate: cubic-bezier(0.3, 0, 1, 1);
 
             --md-state-hover-opacity: 0.08;
             --md-state-focus-opacity: 0.12;
@@ -276,42 +277,111 @@
         }
 
         .nav-toggle:hover {
-            background-color: rgba(var(--md-on-surface-rgb, 28, 27, 31), var(--md-state-hover-opacity));
+            background-color: rgba(28, 27, 31, var(--md-state-hover-opacity));
+        }
+
+        /* 悬浮胶囊导航栏 */
+        #mainNav {
+            position: relative;
         }
 
         #mainNav ul {
             display: flex;
             list-style: none;
-            gap: 4px;
+            gap: 2px;
             margin: 0;
-            padding: 0;
+            padding: 4px;
             align-items: center;
+            background-color: var(--md-surface-container-low);
+            border-radius: 40px;
+            box-shadow: var(--md-elevation-2);
+            position: relative;
+            transition: background-color var(--md-duration-medium) var(--md-easing-standard);
+        }
+
+        .dark-mode #mainNav ul {
+            box-shadow: none;
+            border: 1px solid var(--md-outline-variant);
         }
 
         #mainNav a {
             text-decoration: none;
             color: var(--md-on-surface);
             font: var(--md-typescale-label-large);
-            padding: 10px 16px;
-            border-radius: var(--md-shape-full);
-            transition: background-color var(--md-duration-short) var(--md-easing-standard), color var(--md-duration-short) var(--md-easing-standard);
-            display: block;
+            padding: 8px 18px;
+            border-radius: 20px;
+            transition: color var(--md-duration-short) var(--md-easing-standard);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             white-space: nowrap;
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            height: 40px;
+            min-width: 40px;
         }
 
         #mainNav a:hover {
-            background-color: rgba(103, 80, 164, var(--md-state-hover-opacity));
             color: var(--md-primary);
         }
 
-        #mainNav a:active {
-            background-color: rgba(103, 80, 164, var(--md-state-pressed-opacity));
+        /* 滑动指示器 */
+        .nav-indicator {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: var(--md-secondary-container);
+            transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1;
+            pointer-events: none;
+            box-shadow: none;
+        }
+
+        .dark-mode .nav-indicator {
+            background-color: var(--md-secondary-container);
         }
 
         #mainNav a.active-link {
-            background-color: var(--md-secondary-container);
             color: var(--md-on-secondary-container);
             font-weight: 600;
+        }
+
+        /* 移动端导航重置为垂直列表，隐藏指示器 */
+        @media (max-width: 768px) {
+            .nav-indicator {
+                display: none;
+            }
+
+            #mainNav ul {
+                flex-direction: column;
+                gap: 2px;
+                background: transparent;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 12px 16px 20px;
+            }
+
+            .dark-mode #mainNav ul {
+                border: none;
+            }
+
+            #mainNav a {
+                border-radius: var(--md-shape-medium);
+                padding: 14px 20px;
+                font: var(--md-typescale-body-large);
+                font-weight: 500;
+                height: auto;
+                justify-content: flex-start;
+            }
+
+            #mainNav a.active-link {
+                background-color: var(--md-secondary-container);
+                color: var(--md-on-secondary-container);
+                border-radius: var(--md-shape-medium);
+            }
         }
 
         .hero {
@@ -382,6 +452,12 @@
 
         .btn:active {
             filter: brightness(0.94);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
         }
 
         .hero-visual {
@@ -717,6 +793,303 @@
             font: var(--md-typescale-body-medium);
             color: var(--md-on-surface-variant);
             line-height: 1.6;
+        }
+
+        .consultation-section {
+            background-color: var(--md-surface-container-low);
+        }
+
+        .consultation-grid {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .consultation-form-wrapper {
+            flex: 1.2;
+            min-width: 340px;
+            background-color: var(--md-surface-container-lowest);
+            border-radius: var(--md-shape-large);
+            padding: 36px 32px;
+            box-shadow: var(--md-elevation-1);
+            border: 1px solid transparent;
+            transition: border-color var(--md-duration-medium) var(--md-easing-standard), background-color var(--md-duration-medium) var(--md-easing-standard);
+        }
+
+        .dark-mode .consultation-form-wrapper {
+            box-shadow: none;
+            border-color: var(--md-outline-variant);
+            background-color: var(--md-surface-container-high);
+        }
+
+        .consultation-form-wrapper:hover {
+            border-color: var(--md-outline);
+        }
+
+        .consultation-form-wrapper .form-heading {
+            font: var(--md-typescale-title-medium);
+            font-weight: 600;
+            color: var(--md-on-surface);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .consultation-form-wrapper .form-heading .material-symbols-outlined {
+            color: var(--md-primary);
+            font-size: 26px;
+        }
+
+        .consultation-form-wrapper .form-subheading {
+            font: var(--md-typescale-body-medium);
+            color: var(--md-on-surface-variant);
+            margin-bottom: 28px;
+        }
+
+        .md3-form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .md3-form-label {
+            display: block;
+            font: var(--md-typescale-label-medium);
+            font-weight: 600;
+            color: var(--md-on-surface-variant);
+            margin-bottom: 6px;
+            letter-spacing: 0.01em;
+        }
+
+        .md3-form-label .required-star {
+            color: var(--md-error);
+            margin-left: 2px;
+        }
+
+        .md3-input,
+        .md3-textarea,
+        .md3-select {
+            width: 100%;
+            padding: 13px 16px;
+            font: var(--md-typescale-body-large);
+            color: var(--md-on-surface);
+            background-color: transparent;
+            border: 1.5px solid var(--md-outline-variant);
+            border-radius: var(--md-shape-small);
+            transition: border-color var(--md-duration-short) var(--md-easing-standard),
+                box-shadow var(--md-duration-short) var(--md-easing-standard),
+                background-color var(--md-duration-short) var(--md-easing-standard);
+            outline: none;
+            font-family: 'Noto Sans SC', 'Roboto', sans-serif;
+            resize: vertical;
+        }
+
+        .md3-input::placeholder,
+        .md3-textarea::placeholder {
+            color: var(--md-on-surface-variant);
+            opacity: 0.6;
+        }
+
+        .md3-input:hover,
+        .md3-textarea:hover,
+        .md3-select:hover {
+            border-color: var(--md-on-surface-variant);
+            background-color: rgba(103, 80, 164, 0.03);
+        }
+
+        .md3-input:focus,
+        .md3-textarea:focus,
+        .md3-select:focus {
+            border-color: var(--md-primary);
+            box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.15);
+            background-color: rgba(103, 80, 164, 0.04);
+        }
+
+        .dark-mode .md3-input:focus,
+        .dark-mode .md3-textarea:focus,
+        .dark-mode .md3-select:focus {
+            box-shadow: 0 0 0 3px rgba(208, 188, 255, 0.2);
+            background-color: rgba(208, 188, 255, 0.04);
+        }
+
+        .md3-input.error,
+        .md3-textarea.error,
+        .md3-select.error {
+            border-color: var(--md-error);
+            box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.12);
+        }
+
+        .md3-input.error:focus,
+        .md3-textarea.error:focus,
+        .md3-select.error:focus {
+            border-color: var(--md-error);
+            box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.2);
+        }
+
+        .md3-error-text {
+            font: var(--md-typescale-body-small);
+            color: var(--md-error);
+            margin-top: 4px;
+            display: none;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .md3-error-text.visible {
+            display: flex;
+        }
+
+        .md3-error-text .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        .md3-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%2379747E' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 22px;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .md3-textarea {
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .consultation-info-panel {
+            flex: 0.9;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .consultation-info-card {
+            background-color: var(--md-surface-container-lowest);
+            border-radius: var(--md-shape-large);
+            padding: 28px 24px;
+            box-shadow: var(--md-elevation-1);
+            border: 1px solid transparent;
+            transition: border-color var(--md-duration-medium) var(--md-easing-standard), background-color var(--md-duration-medium) var(--md-easing-standard);
+        }
+
+        .dark-mode .consultation-info-card {
+            box-shadow: none;
+            border-color: var(--md-outline-variant);
+            background-color: var(--md-surface-container-high);
+        }
+
+        .consultation-info-card:hover {
+            border-color: var(--md-outline);
+        }
+
+        .consultation-info-card .info-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--md-shape-medium);
+            background-color: var(--md-primary-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--md-on-primary-container);
+            font-size: 24px;
+            margin-bottom: 14px;
+            transition: background-color var(--md-duration-short) var(--md-easing-standard), color var(--md-duration-short) var(--md-easing-standard);
+        }
+
+        .consultation-info-card:hover .info-card-icon {
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+        }
+
+        .consultation-info-card h4 {
+            font: var(--md-typescale-title-small);
+            font-weight: 600;
+            color: var(--md-on-surface);
+            margin-bottom: 6px;
+        }
+
+        .consultation-info-card p {
+            font: var(--md-typescale-body-medium);
+            color: var(--md-on-surface-variant);
+            line-height: 1.55;
+        }
+
+        .consultation-info-card .info-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--md-primary);
+            font-weight: 600;
+            font: var(--md-typescale-label-large);
+            margin-top: 8px;
+            text-decoration: none;
+            transition: gap var(--md-duration-short) var(--md-easing-standard);
+        }
+
+        .consultation-info-card .info-highlight:hover {
+            gap: 10px;
+        }
+
+        .consultation-info-card .info-highlight::after {
+            content: '→';
+            transition: transform var(--md-duration-short) var(--md-easing-standard);
+        }
+
+        .consultation-info-card .info-highlight:hover::after {
+            transform: translateX(3px);
+        }
+
+        .form-submit-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .form-submit-row .btn {
+            padding: 14px 32px;
+        }
+
+        .form-status-message {
+            font: var(--md-typescale-body-medium);
+            padding: 10px 16px;
+            border-radius: var(--md-shape-small);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .form-status-message.success {
+            display: flex;
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #A5D6A7;
+        }
+
+        .dark-mode .form-status-message.success {
+            background-color: #1B3A1F;
+            color: #81C784;
+            border-color: #388E3C;
+        }
+
+        .form-status-message.error-msg {
+            display: flex;
+            background-color: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #EF9A9A;
+        }
+
+        .dark-mode .form-status-message.error-msg {
+            background-color: #3A1518;
+            color: #EF5350;
+            border-color: #B71C1C;
         }
 
         .news-section {
@@ -1251,6 +1624,9 @@
             .portfolio-grid {
                 grid-template-columns: repeat(4, 1fr);
             }
+            .consultation-grid {
+                gap: 28px;
+            }
         }
 
         @media (max-width: 992px) {
@@ -1292,6 +1668,14 @@
             }
             .join-container {
                 flex-direction: column;
+            }
+            .consultation-grid {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .consultation-form-wrapper,
+            .consultation-info-panel {
+                min-width: 100%;
             }
         }
 
@@ -1376,6 +1760,19 @@
             .portfolio-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .consultation-form-wrapper {
+                padding: 28px 20px;
+            }
+            .consultation-info-card {
+                padding: 22px 18px;
+            }
+            .form-submit-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .form-submit-row .btn {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1439,6 +1836,12 @@
             .join-action {
                 padding: 32px 24px;
             }
+            .consultation-form-wrapper {
+                padding: 24px 16px;
+            }
+            .consultation-info-panel {
+                gap: 14px;
+            }
         }
 
         @keyframes fadeInUp {
@@ -1489,13 +1892,15 @@
             </div>
 
             <div class="nav-container">
-                <button class="nav-toggle mdc-icon-button" aria-expanded="false" aria-controls="siteNavList" aria-label="切换导航菜单">
+                <button class="nav-toggle" aria-expanded="false" aria-controls="siteNavList" aria-label="切换导航菜单">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
                 <nav id="mainNav" aria-label="主导航">
                     <ul id="siteNavList">
+                        <li class="nav-indicator" id="navIndicator"></li>
                         <li><a href="#home" class="active-link">首页</a></li>
                         <li><a href="#services">服务</a></li>
+                        <li><a href="#consultation">合作咨询</a></li>
                         <li><a href="#news">新闻</a></li>
                         <li><a href="#portfolio">作品</a></li>
                         <li><a href="#team">精英成员</a></li>
@@ -1562,6 +1967,75 @@
         </div>
     </section>
 
+    <section id="consultation" class="consultation-section">
+        <div class="container">
+            <h2 class="section-title">合作咨询</h2>
+            <p class="section-subtitle">有合作意向？请填写下方表单，我们将在1-3个工作日内与您取得联系</p>
+            <div class="consultation-grid">
+                <div class="consultation-form-wrapper">
+                    <div class="form-heading">
+                        <span class="material-symbols-outlined">contact_support</span>
+                        提交咨询
+                    </div>
+                    <p class="form-subheading">请详细描述您的合作需求，以便我们更好地为您服务</p>
+                    <form id="consultationForm" novalidate>
+                        <div class="md3-form-group">
+                            <label class="md3-form-label" for="consultName">您的称呼 <span class="required-star">*</span></label>
+                            <input type="text" id="consultName" class="md3-input" placeholder="请输入您的姓名或昵称" required autocomplete="name">
+                            <span class="md3-error-text" id="consultNameError"><span class="material-symbols-outlined">error</span> 请输入您的称呼</span>
+                        </div>
+                        <div class="md3-form-group">
+                            <label class="md3-form-label" for="consultEmail">电子邮箱 <span class="required-star">*</span></label>
+                            <input type="email" id="consultEmail" class="md3-input" placeholder="请输入您的邮箱地址" required autocomplete="email">
+                            <span class="md3-error-text" id="consultEmailError"><span class="material-symbols-outlined">error</span> 请输入有效的邮箱地址</span>
+                        </div>
+                        <div class="md3-form-group">
+                            <label class="md3-form-label" for="consultType">咨询类型 <span class="required-star">*</span></label>
+                            <select id="consultType" class="md3-select" required>
+                                <option value="" disabled selected>请选择咨询类型</option>
+                                <option value="advertising">广告宣传合作</option>
+                                <option value="collaboration">协作作品合作</option>
+                                <option value="branch">分会外事咨询</option>
+                                <option value="other">其他合作咨询</option>
+                            </select>
+                            <span class="md3-error-text" id="consultTypeError"><span class="material-symbols-outlined">error</span> 请选择咨询类型</span>
+                        </div>
+                        <div class="md3-form-group">
+                            <label class="md3-form-label" for="consultMessage">咨询内容 <span class="required-star">*</span></label>
+                            <textarea id="consultMessage" class="md3-textarea" placeholder="请详细描述您的合作意向、项目概况或具体需求……" required rows="5"></textarea>
+                            <span class="md3-error-text" id="consultMessageError"><span class="material-symbols-outlined">error</span> 请输入咨询内容（至少10个字符）</span>
+                        </div>
+                        <div class="form-submit-row">
+                            <button type="submit" class="btn" id="consultSubmitBtn">
+                                <span class="material-symbols-outlined">send</span> 提交咨询
+                            </button>
+                            <span class="form-status-message" id="formStatusMessage"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="consultation-info-panel">
+                    <div class="consultation-info-card">
+                        <div class="info-card-icon"><span class="material-symbols-outlined">schedule</span></div>
+                        <h4>响应时间</h4>
+                        <p>我们会在收到咨询后的<strong>1-3个工作日</strong>内通过邮件回复。如遇节假日，回复时间可能略有延长。</p>
+                        <a href="mailto:gahoutin@foxmail.com" class="info-highlight">直接发送邮件</a>
+                    </div>
+                    <div class="consultation-info-card">
+                        <div class="info-card-icon"><span class="material-symbols-outlined">info</span></div>
+                        <h4>咨询须知</h4>
+                        <p>请确保提供真实有效的联系方式。对于广告宣传类合作，请注明目标受众与预期效果；协作作品类请附上项目简介。</p>
+                    </div>
+                    <div class="consultation-info-card">
+                        <div class="info-card-icon"><span class="material-symbols-outlined">forum</span></div>
+                        <h4>其他联系方式</h4>
+                        <p>您也可以通过QQ群与我们取得联系，或直接在编程猫社区私信室长。</p>
+                        <a href="https://qm.qq.com/q/bWLMtQZOus" class="info-highlight" target="_blank">加入QQ交流群</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="news" class="news-section">
         <div class="container">
             <h2 class="section-title">最新动态</h2>
@@ -1610,15 +2084,12 @@
             </div>
             <div class="portfolio-grid">
                 <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMjAxODM5NDAwXzMwMDM5OTY1MV8xNzcyMDgyMjQ4MzQwXzllY2RjNjk3.png" alt="学科模拟器"></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMjAxODM5NDAwXzMwMDM5OTY1MV8xNzcyMDgyMjQ4MzQwXzllY2RjNjk3.png" alt="3D我的世界3"></div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">3D我的世界3</h3>
                         <span class="portfolio-id">编号 300399651</span>
                         <p>无限复杂的地形！！全方面升级！搭载更加强大的3D引擎、地形生成引擎、区块引擎，流畅支撑超大世界！地形有厚度，能够支持玩家进行mc的鱼骨挖矿！精选作品《3D我的世界2》的续作。</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">点猫精选</span>
-                            <span class="portfolio-tag">体验不同人生</span>
-                        </div>
+                        <div class="portfolio-tags"><span class="portfolio-tag">点猫精选</span><span class="portfolio-tag">体验不同人生</span></div>
                         <a href="https://shequ.codemao.cn/work/300399651" class="experience-btn">开始体验</a>
                     </div>
                 </div>
@@ -1628,76 +2099,57 @@
                         <h3 class="portfolio-title">学科模拟器</h3>
                         <span class="portfolio-id">编号 249158990</span>
                         <p>有意打造出全编程猫最优质的学科模拟类作品。因为我们相信：知识不是被灌输的，而是被传递的。</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">KittenN</span>
-                            <span class="portfolio-tag">学科类</span>
-                        </div>
+                        <div class="portfolio-tags"><span class="portfolio-tag">KittenN</span><span class="portfolio-tag">学科类</span></div>
                         <a href="https://shequ.codemao.cn/work/249158990" class="experience-btn">开始体验</a>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTExMTUzMjM5MF8zMDMzODE4NDFfMTc3MTU2MzkzODcyM18wODYyNzRlMw==.gif" alt="学科模拟器"></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTExMTUzMjM5MF8zMDMzODE4NDFfMTc3MTU2MzkzODcyM18wODYyNzRlMw==.gif" alt="3D对洗澡的恐惧"></div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">3D对洗澡的恐惧</h3>
                         <span class="portfolio-id">编号 303381841</span>
-                        <p>这是一个里程碑，猫站第一个3d纹理恐怖游戏。一共有3个结局，等你来挑战哦！内含恐怖元素。这是根据我小时候的经理改变而成的！</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">奇思妙想创意馆</span>
-                            <span class="portfolio-tag">新作喵喵看</span>
-                        </div>
+                        <p>这是一个里程碑，猫站第一个3d纹理恐怖游戏。一共有3个结局，等你来挑战哦！内含恐怖元素。这是根据我小时候的经历改编而成的！</p>
+                        <div class="portfolio-tags"><span class="portfolio-tag">奇思妙想创意馆</span><span class="portfolio-tag">新作喵喵看</span></div>
                         <a href="https://shequ.codemao.cn/work/303381841" class="experience-btn">开始体验</a>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTgxNjkwMTIxMV8yMzY5NzYzMjZfMTc2OTk1NDkzODg3OV84ODY4N2FjYQ==.png" alt="学科模拟器"></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTgxNjkwMTIxMV8yMzY5NzYzMjZfMTc2OTk1NDkzODg3OV84ODY4N2FjYQ==.png" alt="一起下棋"></div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">一起下棋</h3>
                         <span class="portfolio-id">编号 236976326</span>
                         <p>自制五子棋ai。国际象棋。有一些bug，ai有一点点喵但也还行</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">燃烧吧！大脑</span>
-                            <span class="portfolio-tag">Relax！休闲一刻</span>
-                            <span class="portfolio-tag">新作喵喵看</span>
-                        </div>
+                        <div class="portfolio-tags"><span class="portfolio-tag">燃烧吧！大脑</span><span class="portfolio-tag">Relax！休闲一刻</span><span class="portfolio-tag">新作喵喵看</span></div>
                         <a href="https://shequ.codemao.cn/work/236976326" class="experience-btn">开始体验</a>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTI3Njg4MTcwNV8yNzkzNjE3MDZfMTc1NjAxMTcwNzA2N18yNjM1Yzk5Nw==.png" alt="学科模拟器"></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfMTI3Njg4MTcwNV8yNzkzNjE3MDZfMTc1NjAxMTcwNzA2N18yNjM1Yzk5Nw==.png" alt="无尽的拉格朗日"></div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">无尽的拉格朗日</h3>
                         <span class="portfolio-id">编号 279361706</span>
                         <p>更新随缘看心情，非最终成品。拉格 + 二风2 = ？。增加防空与陨石机制（目前不扣血）</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">太空</span>
-                            <span class="portfolio-tag">经营类</span>
-                        </div>
+                        <div class="portfolio-tags"><span class="portfolio-tag">太空</span><span class="portfolio-tag">经营类</span></div>
                         <a href="https://shequ.codemao.cn/work/279361706" class="experience-btn">开始体验</a>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfNjA2MTg3NF8zMDMzNzk1NTFfMTc3MDE4NjQ0NTk2Nl8zN2JjOWYyMg==.gif" alt="学科模拟器"></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/445/kitten/d2ViXzIwMDFfNjA2MTg3NF8zMDMzNzk1NTFfMTc3MDE4NjQ0NTk2Nl8zN2JjOWYyMg==.gif" alt="永恒跑酷"></div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">永恒跑酷</h3>
                         <span class="portfolio-id">编号 300873599</span>
                         <p>bug都修了。普通跑酷：竹下 大地图搭建：竹下、WYP 联机:WYP UI：小绿、竹下</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">跑酷</span>
-                            <span class="portfolio-tag">联机</span>
-                        </div>
+                        <div class="portfolio-tags"><span class="portfolio-tag">跑酷</span><span class="portfolio-tag">联机</span></div>
                         <a href="https://shequ.codemao.cn/work/300873599" class="experience-btn">开始体验</a>
                     </div>
                 </div>
                 <div class="portfolio-item" data-category="design">
-                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/922/user-files/d2ViXzIwMDJfMTMzOTk5MzIzNl8yODU0NTIxOThfMTc3NDA2NTYwMDAwMF9GbE5TRVFYMmZ5dWtET29DUmJTUktVUnpmTnpY.jpeg" alt="学科模拟器"></div>
+                    <div class="portfolio-img"><img src="https://creation.bcmcdn.com/922/user-files/d2ViXzIwMDJfMTMzOTk5MzIzNl8yODU0NTIxOThfMTc3NDA2NTYwMDAwMF9GbE5TRVFYMmZ5dWtET29DUmJTUktVUnpmTnpY.jpeg" alt="MarkdownPrinter"></div>
                     <div class="portfolio-content">
                         <h3 class="portfolio-title">MarkdownPrinter</h3>
                         <span class="portfolio-id">编号 285452198</span>
                         <p>支持的语法：1到6级标题，段落，无序列表（不支持嵌套） 不支持：除了支持的都不支持 以MIT许可证开源</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">渲染</span>
-                            <span class="portfolio-tag">模板</span>
-                        </div>
+                        <div class="portfolio-tags"><span class="portfolio-tag">渲染</span><span class="portfolio-tag">模板</span></div>
                         <a href="https://shequ.codemao.cn/work/285452198" class="experience-btn">开始体验</a>
                     </div>
                 </div>
@@ -1718,7 +2170,7 @@
                     <a href="https://shequ.codemao.cn/user/6061874" class="read-more">进入主页</a>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar"><img src="https://cdn-community.bcmcdn.com/47/community/d2ViXzEwMDFfMTMzOTk5MzIzNl8xMzM5OTkzMjM2XzE3ODE4NzUzMDU5MzRfYmYyMmEyYWY.jpeg" alt="半人大黄鸡" loading="lazy"></div>
+                    <div class="team-avatar"><img src="https://cdn-community.bcmcdn.com/47/community/d2ViXzEwMDFfMTMzOTk5MzIzNl8xMzM5OTkzMjM2XzE3ODE4NzUzMDU5MzRfYmYyMmEyYWY.jpeg" alt="有名取命" loading="lazy"></div>
                     <h3 class="team-name">有名取命</h3>
                     <p class="team-role">副室长</p>
                     <p>是首页作品"学科模拟器"的作者的小号，负责掌管本室与其他工作室的合作。同时是本网站的负责人</p>
@@ -1735,7 +2187,7 @@
                     <div class="team-avatar"><img src="https://cdn-community.bcmcdn.com/47/community/d2ViXzEwMDFfMTExMTUzMjM5MF8xMTExNTMyMzkwXzE3NjgxMTk2MjY0MzJfZDc5ZGJjMjc.jpeg" alt="3dmc" loading="lazy"></div>
                     <h3 class="team-name">3dmc</h3>
                     <p class="team-role">3D作品专家</p>
-                    <p>专注于3D作品开发，精通各种三维技术，发布了很多#D作品。其作品曾经入围首页。</p>
+                    <p>专注于3D作品开发，精通各种三维技术，发布了很多3D作品。其作品曾经入围首页。</p>
                     <a href="https://shequ.codemao.cn/user/1111532390" class="read-more">进入主页</a>
                 </div>
             </div>
@@ -1749,8 +2201,7 @@
             <div class="join-container">
                 <div class="join-info">
                     <h3 style="font: var(--md-typescale-title-medium); font-weight: 600; margin-bottom: 16px; color: var(--md-on-surface);">
-                        <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">check_circle</span>
-                        加入条件
+                        <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">check_circle</span> 加入条件
                     </h3>
                     <ul class="condition-list">
                         <li><span class="material-symbols-outlined">star</span><span>拥有编程猫社区账号，且无严重违规记录。</span></li>
@@ -1766,12 +2217,12 @@
                     <span class="material-symbols-outlined" style="font-size: 64px; color: var(--md-primary);">description</span>
                     <h3 style="font: var(--md-typescale-title-medium); font-weight: 600; color: var(--md-on-surface);">准备加入？</h3>
                     <p style="font: var(--md-typescale-body-medium); color: var(--md-on-surface-variant);">第一步：下载申请表模板</p>
-                    <a href="https://chunqiv.netlify.app/炎黄春秋工作室加入申请单.pdf" class="download-btn" download="炎黄春秋工作室加入申请单.pdf" onclick="alert('下载申请表');">
+                    <a href="https://chunqiv.netlify.app/炎黄春秋工作室加入申请单.pdf" class="download-btn" download="炎黄春秋工作室加入申请单.pdf">
                         <span class="material-symbols-outlined">download</span> 下载申请表
                     </a>
                     <div style="width: 100%; height: 1px; background: var(--md-outline-variant); margin: 8px 0;"></div>
                     <p style="font: var(--md-typescale-body-medium); color: var(--md-on-surface-variant);">第二步：前往申请网址提交</p>
-                    <a href="joinus.html" target="_blank" class="apply-link-btn">
+                    <a class='apply-link-btn' href='/joinus' target='_blank'>
                         <span class="material-symbols-outlined">open_in_new</span> 前往申请页面
                     </a>
                     <p style="font: var(--md-typescale-body-medium); color: var(--md-on-surface-variant);">补充说明：为简化程序，现在可以通过在线填写微软表单申请</p>
@@ -1800,6 +2251,7 @@
                     <ul>
                         <li><a href="#home">首页</a></li>
                         <li><a href="#services">服务</a></li>
+                        <li><a href="#consultation">合作咨询</a></li>
                         <li><a href="#news">新闻</a></li>
                         <li><a href="#portfolio">作品</a></li>
                         <li><a href="#team">精英</a></li>
@@ -1819,7 +2271,6 @@
         </div>
     </footer>
 
-    <script src="assets/nav.js" defer></script>
     <script>
         (function() {
             function checkDarkModePreference() {
@@ -1886,6 +2337,7 @@
             const header = document.getElementById('siteHeader');
             const navLinks = document.querySelectorAll('#mainNav a');
             const sections = document.querySelectorAll('section[id]');
+            const navIndicator = document.getElementById('navIndicator');
 
             function updateActiveNav() {
                 let currentId = '';
@@ -1897,6 +2349,24 @@
                     link.classList.remove('active-link');
                     if (link.getAttribute('href') === '#' + currentId) link.classList.add('active-link');
                 });
+                moveIndicator();
+            }
+
+            function moveIndicator() {
+                if (!navIndicator || window.innerWidth <= 768) return;
+                const activeLink = document.querySelector('#mainNav a.active-link');
+                if (!activeLink) {
+                    navIndicator.style.opacity = '0';
+                    return;
+                }
+                const ul = document.getElementById('siteNavList');
+                const linkRect = activeLink.getBoundingClientRect();
+                const ulRect = ul.getBoundingClientRect();
+                const left = linkRect.left - ulRect.left;
+                const width = linkRect.width;
+                navIndicator.style.left = left + 'px';
+                navIndicator.style.width = width + 'px';
+                navIndicator.style.opacity = '1';
             }
 
             window.addEventListener('scroll', function() {
@@ -1907,13 +2377,131 @@
                 updateActiveNav();
             });
 
+            window.addEventListener('resize', moveIndicator);
             updateActiveNav();
+
+            // 手动点击导航时立即移动指示器
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // 移除所有active类，然后添加给当前点击的链接
+                    navLinks.forEach(l => l.classList.remove('active-link'));
+                    this.classList.add('active-link');
+                    moveIndicator();
+                });
+            });
 
             document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.opacity = '0';
                 document.body.style.transition = 'opacity 0.4s ease';
                 requestAnimationFrame(() => { document.body.style.opacity = '1'; });
             });
+
+            // 合作咨询表单逻辑
+            const consultForm = document.getElementById('consultationForm');
+            const formStatusMsg = document.getElementById('formStatusMessage');
+            const submitBtn = document.getElementById('consultSubmitBtn');
+            const nameInput = document.getElementById('consultName');
+            const emailInput = document.getElementById('consultEmail');
+            const typeSelect = document.getElementById('consultType');
+            const messageTextarea = document.getElementById('consultMessage');
+            const nameError = document.getElementById('consultNameError');
+            const emailError = document.getElementById('consultEmailError');
+            const typeError = document.getElementById('consultTypeError');
+            const messageError = document.getElementById('consultMessageError');
+
+            function clearAllErrors() {
+                [nameInput, emailInput, typeSelect, messageTextarea].forEach(el => {
+                    if (el) el.classList.remove('error');
+                });
+                [nameError, emailError, typeError, messageError].forEach(el => {
+                    if (el) el.classList.remove('visible');
+                });
+                formStatusMsg.classList.remove('success', 'error-msg');
+                formStatusMsg.textContent = '';
+                formStatusMsg.style.display = 'none';
+            }
+
+            function showFieldError(inputEl, errorEl) {
+                if (inputEl) inputEl.classList.add('error');
+                if (errorEl) errorEl.classList.add('visible');
+            }
+
+            function validateForm() {
+                clearAllErrors();
+                let isValid = true;
+                if (!nameInput.value.trim()) {
+                    showFieldError(nameInput, nameError);
+                    isValid = false;
+                }
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailInput.value.trim() || !emailPattern.test(emailInput.value.trim())) {
+                    showFieldError(emailInput, emailError);
+                    isValid = false;
+                }
+                if (!typeSelect.value) {
+                    showFieldError(typeSelect, typeError);
+                    isValid = false;
+                }
+                if (!messageTextarea.value.trim() || messageTextarea.value.trim().length < 10) {
+                    showFieldError(messageTextarea, messageError);
+                    isValid = false;
+                }
+                return isValid;
+            }
+
+            if (consultForm) {
+                nameInput.addEventListener('input', function() {
+                    if (nameInput.value.trim()) {
+                        nameInput.classList.remove('error');
+                        if (nameError) nameError.classList.remove('visible');
+                    }
+                });
+                emailInput.addEventListener('input', function() {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailInput.value.trim() && emailPattern.test(emailInput.value.trim())) {
+                        emailInput.classList.remove('error');
+                        if (emailError) emailError.classList.remove('visible');
+                    }
+                });
+                typeSelect.addEventListener('change', function() {
+                    if (typeSelect.value) {
+                        typeSelect.classList.remove('error');
+                        if (typeError) typeError.classList.remove('visible');
+                    }
+                });
+                messageTextarea.addEventListener('input', function() {
+                    if (messageTextarea.value.trim().length >= 10) {
+                        messageTextarea.classList.remove('error');
+                        if (messageError) messageError.classList.remove('visible');
+                    }
+                });
+
+                consultForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    clearAllErrors();
+                    if (!validateForm()) {
+                        const firstError = consultForm.querySelector('.md3-input.error, .md3-textarea.error, .md3-select.error');
+                        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="material-symbols-outlined" style="animation: orbitSpin 1s linear infinite;">sync</span> 提交中...';
+                    setTimeout(function() {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span class="material-symbols-outlined">send</span> 提交咨询';
+                        formStatusMsg.style.display = 'flex';
+                        formStatusMsg.classList.add('success');
+                        formStatusMsg.innerHTML = '<span class="material-symbols-outlined">check_circle</span> 咨询已成功提交！我们将在1-3个工作日内回复您。';
+                        consultForm.reset();
+                        formStatusMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(function() {
+                            formStatusMsg.classList.remove('success');
+                            formStatusMsg.style.display = 'none';
+                            formStatusMsg.textContent = '';
+                        }, 5000);
+                    }, 1500);
+                });
+            }
         })();
     </script>
 </body>
